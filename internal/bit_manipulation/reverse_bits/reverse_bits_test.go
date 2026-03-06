@@ -5,8 +5,8 @@ import "testing"
 func Test_reverseBits(t *testing.T) {
 	tests := []struct {
 		name string
-		n    uint32
-		want uint32
+		n    int
+		want int
 	}{
 		{
 			name: "example 1",
@@ -25,8 +25,8 @@ func Test_reverseBits(t *testing.T) {
 		},
 		{
 			name: "all ones",
-			n:    4294967295, // 0xFFFFFFFF (32 bit toàn là 1)
-			want: 4294967295, // Kết quả vẫn là toàn 1
+			n:    int(uint32(4294967295)), // 0xFFFFFFFF (32 bit toàn là 1)
+			want: int(uint32(4294967295)), // Kết quả vẫn là toàn 1
 		},
 		{
 			name: "only LSB set",
@@ -35,13 +35,13 @@ func Test_reverseBits(t *testing.T) {
 		},
 		{
 			name: "only MSB set",
-			n:    2147483648, // 10000000000000000000000000000000
-			want: 1,         // 00000000000000000000000000000001
+			n:    int(uint32(2147483648)), // 10000000000000000000000000000000
+			want: 1,                       // 00000000000000000000000000000001
 		},
 		{
 			name: "alternating pattern",
-			n:    2863311530, // 10101010101010101010101010101010
-			want: 1431655765, // 01010101010101010101010101010101
+			n:    int(uint32(2863311530)), // 10101010101010101010101010101010
+			want: int(uint32(1431655765)), // 01010101010101010101010101010101
 		},
 		{
 			name: "small even number",
@@ -80,8 +80,8 @@ func Test_reverseBits(t *testing.T) {
 		},
 		{
 			name: "multiple bits set",
-			n:    15, // 00000000000000000000000000001111
-			want: 4026531840, // 11110000000000000000000000000000
+			n:    15,                      // 00000000000000000000000000001111
+			want: int(uint32(4026531840)), // 11110000000000000000000000000000
 		},
 	}
 
@@ -101,15 +101,15 @@ func Test_reverseBits(t *testing.T) {
 
 // Test_reverseBits_Verification kiểm tra tính chất đảo ngược 2 lần sẽ trả về số ban đầu
 func Test_reverseBits_Verification(t *testing.T) {
-	testCases := []uint32{
+	testCases := []int{
 		0,
 		1,
 		2,
 		43261596,
 		2147483644,
-		4294967295,
-		2147483648,
-		2863311530,
+		int(uint32(4294967295)),
+		int(uint32(2147483648)),
+		int(uint32(2863311530)),
 	}
 
 	for _, n := range testCases {

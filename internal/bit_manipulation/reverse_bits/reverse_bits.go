@@ -15,20 +15,24 @@ package bit_manipulation
 // - Kết quả: 964176192 (00111001011110000010100101000000)
 //
 // Độ phức tạp: O(1) thời gian (luôn duyệt 32 bit), O(1) không gian
-func reverseBits(n uint32) uint32 {
+func reverseBits(n int) int {
+	// Ép kiểu sang uint32 để làm việc với bit manipulation
+	// (vì int có thể là 32-bit hoặc 64-bit tùy platform)
+	un := uint32(n)
 	var result uint32
 
 	// Duyệt qua tất cả 32 bit
 	for i := 0; i < 32; i++ {
 		// Lấy bit cuối cùng (LSB) của n bằng cách AND với 1
-		bit := n & 1
+		bit := un & 1
 
 		// Dịch chuyển kết quả sang trái 1 bit và thêm bit mới vào vị trí cuối
 		result = (result << 1) | bit
 
 		// Dịch chuyển n sang phải 1 bit để xử lý bit tiếp theo
-		n >>= 1
+		un >>= 1
 	}
 
-	return result
+	// Ép kiểu lại thành int để trả về
+	return int(result)
 }
